@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UserCardComponent } from './module/user-card/user-card.component';
 
+import imageCompression from 'browser-image-compression';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -13,7 +14,6 @@ import { UserCardComponent } from './module/user-card/user-card.component';
     UserCardComponent,
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule,
     UserCardComponent,
   ],
   templateUrl: './app.component.html',
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.searchForm = new FormGroup({
-      search: new FormControl('ke'),
+      search: new FormControl(''),
     });
   }
 
@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
           this.totalCount = res.total_count;
           console.log(res);
           this.response = res && res.items ? res.items : [];
+          this.compressAllImages();
         },
         error: (error) => {
           this.response = [];
@@ -56,4 +57,40 @@ export class AppComponent implements OnInit {
     const url = `https://api.github.com/search/users?q=${search}`;
     return this.http.get<any>(url);
   }
+  private async compressAllImages() {
+
+    for (const res of this.response) {
+      try {
+        const response = await fetch(res.avatar_url);
+        const blob = await response.blob();
+        const file = this.blobToFile(blob, 'image.jpg');
+        const compressedBlob = await this.compressImage(file);
+        const compressedImageUrl = URL.createObjectURL(compressedBlob);
+        res.avatar_url=compressedImageUrl;
+      } catch (error) {
+        console.error('Error fetching and compressing image:', error);
+      }
+    }
+  }
+
+  private async compressImage(image: File): Promise<Blob> {
+    const options = {
+      maxSizeMB: 0.001,          // Max file size in MB
+      maxWidthOrHeight: 800, // Max width or height
+      useWebWorker: true     // Use web worker for better performance
+    };
+
+    try {
+      const compressedImage = await imageCompression(image, options);
+      return compressedImage;
+    } catch (error) {
+      console.error('Error compressing image:', error);
+      throw error;
+    }
+  }
+  private blobToFile(blob: Blob, fileName: string): File {
+    const file = new File([blob], fileName, { type: blob.type });
+    return file;
+  }
 }
+

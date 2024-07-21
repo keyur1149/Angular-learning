@@ -9,15 +9,15 @@
       <span class="search-icon"></span>
     </div>
   </form>
-  <div class="nodata" *ngIf="totalCount==0 else users">
-    <div>No user found !!</div>
-  </div>
   <ng-template #users>
     <div class="users-container">
-    <div class="users-count">Total Users : {{ totalCount }}</div>
-    <div class="container">
-      <app-user-card *ngFor="let user of response" [user]="user"></app-user-card>
+      <div class="users-count">Total Users : {{ totalCount }}</div>
+      <div class="container">
+        <app-user-card
+          [user]="user"
+          *ngFor="let user of response"
+        ></app-user-card>
+      </div>
     </div>
-  </div>
   </ng-template>
 </div>
