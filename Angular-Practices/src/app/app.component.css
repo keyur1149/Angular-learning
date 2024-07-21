@@ -1,0 +1,74 @@
+.users-container {
+    margin-top: 32px;
+}
+
+.users-count {
+    margin-right: 2.5rem;
+    font-size: xx-large;
+}
+
+
+.nodata {
+    min-height: 500px;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nodata>div {
+    font-size: 30px;
+    font-weight: bolder;
+    color: red;
+}
+
+
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+    gap: 50px;
+    align-items: center;
+}
+.input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.input-container input[type="text"] {
+    padding-right: 30px;
+    /* Adjust this value to make space for the icon */
+    width: 100%;
+    /* Ensures the input takes full width of the container */
+    box-sizing: border-box;
+    /* Include padding and border in width calculation */
+    border: 1px solid #ccc;
+    /* Example border style */
+    border-radius: 4px;
+    /* Example border radius */
+    height: 36px;
+    /* Example height */
+    font-size: 14px;
+    /* Example font size */
+    outline: none;
+    /* Remove default outline */
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    /* Adjust this value to position the icon */
+    transform: translateY(-50%);
+    width: 20px;
+    /* Adjust icon size as needed */
+    height: 20px;
+    /* Adjust icon size as needed */
+    background-image: url('../assets/images/icons8-search.svg');
+    /* Replace with your icon path */
+    background-size: cover;
+    cursor: pointer;
+    /* Optional: Add cursor style for interaction */
+}

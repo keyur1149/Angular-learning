@@ -1,0 +1,35 @@
+.img-show {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+}
+.container{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    width:100%;
+    display: flex;
+    gap:30px;
+    align-items: center;
+}
+.f-buttons{
+    display: flex;
+    gap:10px;
+    margin: 10px 0px;
+}
+.btn-primary{
+    padding: 9px 9px;
+    background-color: rgb(59, 130, 246);
+    border-color: transparent;
+    border-radius: 15px;
+    color: white;
+}
+.btn-info{
+    padding: 9px 9px;
+    background-color: rgb(14, 165, 233);
+    border-color: transparent;
+    border-radius: 15px;
+    color: white;
+}
