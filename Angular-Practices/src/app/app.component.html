@@ -1,4 +1,4 @@
-<div>
+
   <form [formGroup]="searchForm">
     <div class="input-container">
       <input
@@ -9,6 +9,9 @@
       <span class="search-icon"></span>
     </div>
   </form>
+  <div class="nodata" *ngIf="totalCount == 0; else users">
+    <p>No user found !!</p>
+  </div>
   <ng-template #users>
     <div class="users-container">
       <div class="users-count">Total Users : {{ totalCount }}</div>
@@ -20,4 +23,3 @@
       </div>
     </div>
   </ng-template>
-</div>
